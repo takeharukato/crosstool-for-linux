@@ -862,7 +862,7 @@ EOF
     AR=${prefix}/bin/${target}-ar                        \
     LD=${prefix}/bin/${target}-ld                        \
     RANLIB=${prefix}/bin/${target}-ranlib                \
-    sudo make install-bootstrap-headers=yes install-headers
+    sudo make -i install-bootstrap-headers=yes install-headers
 
     #
     #glibcの仕様により生成されないヘッダファイルをコピーする

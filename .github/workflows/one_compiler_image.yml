@@ -15,7 +15,7 @@
 # 10) Secretの作成画面で, NameをCR_PAT(本ファイル内で参照している名前)に設定し,
 #     Valueに, 上記で獲得したPATを貼り付けてAdd secretをクリック.
 #
-name: Build and publish each cross compiler image for Hyper Operating System
+name: Build and publish each cross compiler image for cross linux development
 on:
   # 手動実行
   workflow_dispatch:
