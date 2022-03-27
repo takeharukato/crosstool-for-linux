@@ -846,7 +846,7 @@ EOF
     AR=${prefix}/bin/${target}-ar                        \
     LD=${prefix}/bin/${target}-ld                        \
     RANLIB=${prefix}/bin/${target}-ranlib                \
-    sudo make install-bootstrap-headers=yes install-headers
+    sudo make -i install-bootstrap-headers=yes install-headers
 
     #
     #glibcの仕様により生成されないヘッダファイルをコピーする
@@ -2058,12 +2058,14 @@ main(){
 		fi
 
 		mkdir -p "${prefix}"
+		mkdir -p "${prefix}/rfs"
 
 		export PATH="${prefix}/bin:${orig_path}"
 
 		echo "@@@ ${cpu} @@@"
 		echo "Target:${target_name}"
 		echo "Prefix:${prefix}"
+		echo "Sysroot:${prefix}/rfs"
 		echo "BuildDir:${build_dir}"
 		echo "SourceDir:${src_dir}"
 		echo "PATH:${PATH}"
