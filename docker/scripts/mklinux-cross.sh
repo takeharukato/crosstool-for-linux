@@ -10,7 +10,7 @@
 
 # コンパイル対象CPU
 if [ "x${TARGET_CPUS}" = "x" ]; then
-	TARGET_CPUS="i386 riscv32 riscv64 mips mipsel microblaze microblazeel arm armhw"
+	TARGET_CPUS="i386 riscv32 riscv64 mips mipsel microblaze microblazeel aarch64 arm armhw sh4 mips64 mips64el"
 	TARGET_CPUS="riscv64"
 	echo "No target cpus specified, build all: ${TARGET_CPUS}"
 else
@@ -62,10 +62,14 @@ declare -A qemu_targets=(
 	["riscv64"]="riscv64-softmmu,riscv64-linux-user"
 	["mips"]="mips-softmmu,mips-linux-user"
 	["mipsel"]="mipsel-softmmu,mipsel-linux-user"
+	["mips64"]="mips64-softmmu,mips64-linux-user"
+	["mips64el"]="mips64el-softmmu,mips64el-linux-user"
+	["aarch64"]="aarch64-softmmu,aarch64-linux-user"
 	["arm"]="arm-softmmu,arm-linux-user"
 	["armhw"]="arm-softmmu,arm-linux-user"
 	["microblaze"]="microblaze-softmmu,microblaze-linux-user"
 	["microblazeel"]="microblazeel-softmmu,microblazeel-linux-user"
+	["sh4"]="sh4-softmmu,sh4-linux-user"
 	)
 
 #
@@ -79,6 +83,8 @@ declare -A kern_cpus=(
     ["microblazeel"]="microblaze"
     ["mips"]="mips"
     ["mipsel"]="mips"
+    ["mips64"]="mips64"
+    ["mips64el"]="mips64"
     ["powerpc"]="powerpc"
     ["riscv32"]="riscv"
     ["riscv64"]="riscv"
@@ -106,6 +112,8 @@ declare -A lib_cpus=(
     ["microblazeel"]="lib"
     ["mips"]="lib"
     ["mipsel"]="lib"
+    ["mips64"]="lib64"
+    ["mipsel64"]="lib64"
     ["powerpc"]="lib"
     ["riscv32"]="lib"
     ["riscv64"]="lib64"
@@ -122,10 +130,14 @@ declare -A qemu_cpus=(
 	["riscv64"]="riscv64"
 	["mips"]="mips"
 	["mipsel"]="mipsel"
+	["mips64"]="mips64"
+	["mips64el"]="mips64el"
 	["arm"]="arm"
 	["armhw"]="arm"
 	["microblaze"]="microblaze"
 	["microblazeel"]="microblazeel"
+	["aarch64"]="aarch64"
+	["sh4"]="sh4"
 	)
 
 #
@@ -137,15 +149,19 @@ declare -A qemu_opts=()
 # ターゲット名
 #
 declare -A cpu_target_names=(
-	["i386-linux"]="i386-unknown-linux-gnu"
-	["riscv32-linux"]="riscv32-unknown-linux-gnu"
-	["riscv64-linux"]="riscv64-unknown-linux-gnu"
-	["mips-linux"]="mips-unknown-linux-gnu"
-	["mipsel-linux"]="mipsel-unknown-linux-gnu"
-	["arm-linux"]="arm-linux-gnueabi"
-	["armhw-linux"]="arm-linux-gnueabihf"
-	["microblaze-linux"]="microblaze-unknown-linux-gnu"
-	["microblazeel-linux"]="microblazeel-unknown-linux-gnu"
+    ["aarch64-linux"]="aarch64-unknown-linux-gnu"
+    ["i386-linux"]="i386-unknown-linux-gnu"
+    ["riscv32-linux"]="riscv32-unknown-linux-gnu"
+    ["riscv64-linux"]="riscv64-unknown-linux-gnu"
+    ["mips-linux"]="mips-unknown-linux-gnu"
+    ["mipsel-linux"]="mipsel-unknown-linux-gnu"
+    ["mips64-linux"]="mips64-unknown-linux-gnu"
+    ["mips64el-linux"]="mips64el-unknown-linux-gnu"
+    ["arm-linux"]="arm-linux-gnueabi"
+    ["armhw-linux"]="arm-linux-gnueabihf"
+    ["microblaze-linux"]="microblaze-unknown-linux-gnu"
+    ["microblazeel-linux"]="microblazeel-unknown-linux-gnu"
+    ["s4-linux"]="sh4-unknown-linux-gnu"
 )
 
 #
@@ -846,7 +862,7 @@ EOF
     AR=${prefix}/bin/${target}-ar                        \
     LD=${prefix}/bin/${target}-ld                        \
     RANLIB=${prefix}/bin/${target}-ranlib                \
-    sudo make -i install-bootstrap-headers=yes install-headers
+    sudo make install-bootstrap-headers=yes install-headers
 
     #
     #glibcの仕様により生成されないヘッダファイルをコピーする
@@ -2052,7 +2068,7 @@ main(){
 		prefix="${CROSS_PREFIX}/${cpu}"
 
 		toolchain_type="linux"
-		target_name="${cpu}-unknown-${toolchain_type}-gnu"
+		target_name="${cpu}-${toolchain_type}-gnu"
 		if [ "x${cpu_target_names[${cpu}-${toolchain_type}]}" != "x" ]; then
 			target_name="${cpu_target_names[${cpu}-${toolchain_type}]}"
 		fi
