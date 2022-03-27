@@ -1,0 +1,71 @@
+// HOS development environment
+// Copyright (C) 1998-2022 by Project HOS
+// http://sourceforge.jp/projects/hos/
+{
+	"name": "Hyper Operating System Development Environment for __CPU__",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-vscode.cpptools",
+		"DamianKoper.gdb-debug",
+		"GitHub.remotehub",
+		"basdp.language-gas-x86",
+		"ZixuanWang.linkerscript",
+		"ms-vscode-remote.remote-containers",
+		"ms-vscode-remote.remote-ssh",
+		"ms-vscode-remote.remote-ssh-edit",
+		"ms-vscode-remote.remote-wsl",
+		"ms-vscode-remote.vscode-remote-extensionpack",
+		"vscode-icons-team.vscode-icons",
+		"ms-vscode.cpptools-extension-pack",
+		"ms-azuretools.vscode-docker",
+		"p1c2u.docker-compose",
+		"mhutchie.git-graph",
+		"donjayamanne.githistory",
+		"felipecaputo.git-project-manager",
+		"me-dutour-mathieu.vscode-github-actions",
+		"OmarTawfik.github-actions-vscode",
+		"ms-vscode.vscode-github-issue-notebooks",
+		"bierner.github-markdown-preview",
+		"erichbehrens.pull-request-monitor",
+		"GitHub.vscode-pull-request-github",
+		"trond-snekvik.gnu-mapfiles",
+		"metalcode-eu.gnu-debugger",
+		"yzhang.markdown-all-in-one",
+		"bierner.markdown-checkbox",
+		"bierner.markdown-footnotes",
+		"yzane.markdown-pdf",
+		"shd101wyy.markdown-preview-enhanced",
+		"bierner.markdown-preview-github-styles",
+		"CharlesWan.markdown-toc",
+		"bierner.markdown-yaml-preamble",
+		"DavidAnson.vscode-markdownlint",
+		"mushan.vscode-paste-image",
+		"ionutvmi.path-autocomplete",
+		"christian-kohler.path-intellisense",
+		"ms-vscode.powershell",
+		"waderyan.gitblame",
+		"Natizyskunk.sftp"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+
+        // Comment out to connect as root instead.
+	//More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "__HOS_REMOTE_USER__",
+	"features": {
+		"git": "os-provided",
+		"github-cli": "latest"
+	}
+}

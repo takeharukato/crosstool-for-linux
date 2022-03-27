@@ -1,0 +1,37 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "(gdb) 起動",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "__HOS_USER_PROGRAM_FILE__",
+            "args": [],
+            "stopAtEntry": false,
+            "stopAtConnect": false,
+            "cwd": "__HOS_HOME_DIR__/__HOS_USER_PROGRAM_DIR__",
+            "env": [{"PATH":"__PREFIX__/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG":"ja_JP.UTF-8",
+                "CROSS_COMPILE":"__GCC_ARCH__",
+                "GCC_ARCH":"__GCC_ARCH__",
+                "GDB_COMMAND":"__GCC_ARCH__gdb",
+                "QEMU":"__QEMU__",
+		"QEMU_OPTS":"__QEMU_OPTS__"}],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "__PREFIX__/bin/__GCC_ARCH__gdb",
+            "miDebuggerServerAddress":"localhost:__REMOTE_GDB_PORT__",
+            "setupCommands": [
+                {
+                    "description": "gdb の再フォーマットを有効にする",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

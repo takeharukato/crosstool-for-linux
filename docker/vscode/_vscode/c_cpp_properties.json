@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Hyper Operating System Development Environment for __CPU__",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "__PREFIX__/rfs/usr/include/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x86"
+        }
+    ],
+    "version": 4
+}
