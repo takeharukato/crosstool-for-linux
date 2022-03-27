@@ -2035,7 +2035,7 @@ main(){
 	mkdir -p ${DOWNLOADS_DIR}
 
 	# 開発環境セットアップ
-	#prepare
+	prepare
 
 	#
 	# クロス環境構築
