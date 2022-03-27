@@ -717,9 +717,6 @@ gen_glibc_headers(){
 	echo "SourceDir:${src_dir}"
 	echo "Tool: ${tool}"
 	echo "Target Cflags:${target_cflags}"
-	echo "PATH:${PATH}"
-
-	ls -lR "${prefix}"
 
 	mkdir -p "${sys_root}"
 	if [ -d "${src_dir}" ]; then
@@ -842,14 +839,14 @@ EOF
 
     #
     #libcのヘッダのみをインストール
-    # エラーが出ても強制的にインストールする
+    #
     BUILD_CC=${build}-gcc                \
     CFLAGS="-O  -finline-functions"        \
     CC=${prefix}/bin/${target}-gcc                       \
     AR=${prefix}/bin/${target}-ar                        \
     LD=${prefix}/bin/${target}-ld                        \
     RANLIB=${prefix}/bin/${target}-ranlib                \
-    sudo make -i install-bootstrap-headers=yes install-headers
+    sudo make install-bootstrap-headers=yes install-headers
 
     #
     #glibcの仕様により生成されないヘッダファイルをコピーする
@@ -2032,7 +2029,9 @@ main(){
 	#
 	orig_path="${PATH}"
 
-	mkdir -p ${DOWNLOADS_DIR}
+	mkdir -p "${LMOD_MODULE_DIR}"
+	mkdir -p "${SHELL_INIT_DIR}"
+	mkdir -p "${DOWNLOADS_DIR}"
 
 	# 開発環境セットアップ
 	prepare
@@ -2058,13 +2057,17 @@ main(){
 			target_name="${cpu_target_names[${cpu}-${toolchain_type}]}"
 		fi
 
+		mkdir -p "${prefix}"
+
+		export PATH="${prefix}/bin:${orig_path}"
+
 		echo "@@@ ${cpu} @@@"
 		echo "Target:${target_name}"
 		echo "Prefix:${prefix}"
 		echo "BuildDir:${build_dir}"
 		echo "SourceDir:${src_dir}"
+		echo "PATH:${PATH}"
 
-		export PATH="${prefix}/bin:${orig_path}"
 
 #		build_qemu \
 #		    "${cpu}" "${target_name}" "${prefix}" "${src_dir}" "${build_dir}" "${toolchain_type}"
